@@ -1,0 +1,15 @@
+FROM base
+
+COPY mods           /root/mods
+COPY args.sh        /root/mods/args.sh
+COPY shared.sh      /root/mods/shared.sh
+COPY run_in_builder.sh       /root/mods/run_in_builder.sh
+
+RUN chmod +x /root/mods/run_in_builder.sh  
+# && /root/mods/run_in_builder.sh # privileged cant run in build contest 
+# 5. 声明需要在运行时挂载的路径
+#    在 Dockerfile 里声明 VOLUME 只是提示：这些目录会在容器启动时被绑定或用 tmpfs
+# VOLUME ["/dev", "/run", "/proc", "/sys", "/dev/pts"]
+
+CMD ["/root/mods/run_in_builder.sh"]
+# ENTRYPOINT ["/root/mods/run_in_builder.sh"]
